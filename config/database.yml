@@ -1,0 +1,21 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= Rails.application.secrets.db_username %>
+  password: <%= Rails.application.secrets.db_password %>
+  socket: /tmp/mysql.sock
+
+development:
+  <<: *default
+  database: steam_hours_development
+
+test:
+  <<: *default
+  database: steam_hours_test
+
+production:
+  <<: *default
+  database: steam_hours_production
+  username: steam_hours
+  password: <%= ENV["STEAM_HOURS_DATABASE_PASSWORD"] %>
